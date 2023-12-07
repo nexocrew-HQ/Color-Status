@@ -1,0 +1,12 @@
+name: "ColorStatus"
+main: "xyz.tnsjesper.colorstatus.Main"
+version: "0.1.1"
+author: "tnsjeper"
+description: "Make some ColorStatus"
+website: "https://theflamesmp.xyz"
+
+libraries:
+  - "de.miraculixx:kpaper:1.1.0"
+  - "dev.jorel:commandapi-bukkit-shade:9.1.0"
+  - "dev.jorel:commandapi-bukkit-kotlin:9.1.0"
+  - "net.kyori:adventure-text-minimessage:4.14.0"
