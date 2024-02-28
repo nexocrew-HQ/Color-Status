@@ -7,7 +7,6 @@ import net.kyori.adventure.text.Component
 import xyz.tnsjesper.colorstatus.commands.SetColorCommand
 
 
-
 class Main : KPaper() {
 
     override fun load() {
@@ -29,8 +28,6 @@ class Main : KPaper() {
         server.consoleSender.sendMessage(Component.text("[ColorStatus] Plugin disabled"))
 
     }
-
-
 }
 
 

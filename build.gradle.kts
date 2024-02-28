@@ -1,23 +1,25 @@
 plugins {
-    kotlin("jvm") version "1.9.0"
+    kotlin("jvm") version "1.9.22"
     id("io.papermc.paperweight.userdev") version "1.5.10"
     id("xyz.jpenilla.run-paper") version "2.2.2"
 
 }
 
 group = "xyz.tnsjesper"
-version = "0.1.1"
+version = "0.2.0"
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
+
     paperweight.paperDevBundle("1.20.1-R0.1-SNAPSHOT")
-    implementation("de.miraculixx", "kpaper", "1.1.0")
-    implementation("dev.jorel", "commandapi-bukkit-shade", "9.1.0")
-    implementation("net.kyori" ,"adventure-text-minimessage" , "4.14.0")
-    implementation("dev.jorel", "commandapi-bukkit-kotlin", "9.1.0")
+
+    implementation("de.miraculixx", "kpaper", "1.1.2")
+    implementation("dev.jorel", "commandapi-bukkit-shade", "9.3.0")
+    implementation("net.kyori", "adventure-text-minimessage", "4.16.0")
+    implementation("dev.jorel", "commandapi-bukkit-kotlin", "9.3.0")
 }
 
 kotlin {
