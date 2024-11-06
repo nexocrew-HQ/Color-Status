@@ -1,25 +1,36 @@
 plugins {
-    kotlin("jvm") version "1.9.22"
-    id("io.papermc.paperweight.userdev") version "1.5.10"
-    id("xyz.jpenilla.run-paper") version "2.2.2"
-
+    kotlin("jvm") version "2.0.21"
+    id("io.papermc.paperweight.userdev") version "1.+"
+    id("xyz.jpenilla.run-paper") version "2.+"
+    kotlin("plugin.serialization") version "2.0.21"
+    id("net.minecrell.plugin-yml.bukkit") version "0.6.0"
 }
 
 group = "xyz.tnsjesper"
-version = "0.2.0"
+version = "0.3.0"
 
 repositories {
     mavenCentral()
 }
 
+
+group = properties["group"] as String
+version = properties["version"] as String
+description = properties["description"] as String
+
+val gameVersion by properties
+val foliaSupport = properties["foliaSupport"] as String == "true"
+val projectName = properties["name"] as String
+
+
 dependencies {
-
     paperweight.paperDevBundle("1.20.1-R0.1-SNAPSHOT")
+    implementation("org.jetbrains.kotlinx", "kotlinx-serialization-json", "1.+")
+    implementation("de.miraculixx", "kpaper", "1.+")
+    implementation("dev.jorel", "commandapi-bukkit-shade", "9.+")
+    implementation("net.kyori", "adventure-text-minimessage", "4.+")
+    implementation("dev.jorel", "commandapi-bukkit-kotlin", "9.+")
 
-    implementation("de.miraculixx", "kpaper", "1.1.2")
-    implementation("dev.jorel", "commandapi-bukkit-shade", "9.3.0")
-    implementation("net.kyori", "adventure-text-minimessage", "4.16.0")
-    implementation("dev.jorel", "commandapi-bukkit-kotlin", "9.3.0")
 }
 
 kotlin {
@@ -27,6 +38,9 @@ kotlin {
 }
 
 tasks {
+    runServer {
+        minecraftVersion("1.20.1")
+    }
     assemble {
         dependsOn(reobfJar)
     }
@@ -37,4 +51,18 @@ tasks {
     compileKotlin {
         kotlinOptions.jvmTarget = "17"
     }
+}
+
+bukkit {
+    main = "$group.${projectName.lowercase()}.${projectName}"
+    apiVersion = "1.16"
+    foliaSupported = foliaSupport
+    website = "https://modrinth.com/plugin/color-status"
+    authors = listOf("xyzjesper")
+
+    // Optionals
+    load = BukkitPluginDescription.PluginLoadOrder.STARTUP
+    depend = listOf()
+    softDepend = listOf()
+    libraries = listOf()
 }

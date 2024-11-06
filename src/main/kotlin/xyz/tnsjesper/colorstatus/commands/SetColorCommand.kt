@@ -1,12 +1,21 @@
 package xyz.tnsjesper.colorstatus.commands
 
 import dev.jorel.commandapi.kotlindsl.*
+import kotlinx.serialization.Serializable
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.minimessage.MiniMessage
+import org.apache.logging.log4j.message.StructuredDataId
 import org.bukkit.ChatColor
+import xyz.tnsjesper.colorstatus.config.ConfigManager
+import xyz.tnsjesper.colorstatus.config.loadConfig
+import java.io.File
 
 
 class SetColorCommand {
+
+    private val file = File("plugin/Color-Status/data/playerdata.json")
+    private val data: MutableMap<String, PlayerData> = file.loadConfig(mutableMapOf())
+
 
     val mm = MiniMessage.miniMessage()
 
@@ -20,7 +29,7 @@ class SetColorCommand {
                 player.setPlayerListName(displayName)
 
                 val parsed: Component =
-                    mm.deserialize("<color:gray>Dein Prefix wurde Resetet")
+                    mm.deserialize(ConfigManager.settings.resetmessage)
                 player.sendMessage(parsed)
             }
         }
@@ -47,8 +56,14 @@ class SetColorCommand {
                                             player.setPlayerListName(displayName)
 
                                             val parsed: Component =
-                                                mm.deserialize("<color:gray>Dein Prefix wurde gesetzt.")
+                                                mm.deserialize(ConfigManager.settings.setmessage)
 
+                                            data.put(
+                                                player.uniqueId.toString(),
+                                                PlayerData(
+                                                    displayName
+                                                )
+                                            )
 
 
                                             player.sendMessage(parsed)
@@ -60,11 +75,9 @@ class SetColorCommand {
                                             player.setDisplayName(displayName)
                                             player.setPlayerListName(displayName)
 
-                                            println(player.name)
-                                            println(displayName)
 
                                             val parsed: Component =
-                                                mm.deserialize("<color:gray>Dein Prefix wurde gesetzt.")
+                                                mm.deserialize(ConfigManager.settings.setmessage)
 
                                             player.sendMessage(parsed)
                                         }
@@ -81,5 +94,10 @@ class SetColorCommand {
         }
 
     }
+}
+
+@Serializable
+data class PlayerData(val prefix: String) {
+    override fun toString() = "$prefix"
 }
 
