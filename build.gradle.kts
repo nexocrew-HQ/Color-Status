@@ -1,16 +1,19 @@
+import net.minecrell.pluginyml.bukkit.BukkitPluginDescription
+
 plugins {
-    kotlin("jvm") version "2.0.21"
+    kotlin("jvm") version "2.+"
     id("io.papermc.paperweight.userdev") version "1.+"
     id("xyz.jpenilla.run-paper") version "2.+"
-    kotlin("plugin.serialization") version "2.0.21"
-    id("net.minecrell.plugin-yml.bukkit") version "0.6.0"
+    kotlin("plugin.serialization") version "2.+"
+    id("net.minecrell.plugin-yml.bukkit") version "0.6.+"
+    id("com.gradleup.shadow") version "8.+"
 }
-
-group = "xyz.tnsjesper"
-version = "0.3.0"
 
 repositories {
     mavenCentral()
+    maven {
+        url = uri("https://repo.extendedclip.com/releases/")
+    }
 }
 
 
@@ -24,32 +27,42 @@ val projectName = properties["name"] as String
 
 
 dependencies {
-    paperweight.paperDevBundle("1.20.1-R0.1-SNAPSHOT")
+    paperweight.paperDevBundle("1.21.1-R0.1-SNAPSHOT")
+
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
     implementation("org.jetbrains.kotlinx", "kotlinx-serialization-json", "1.+")
-    implementation("de.miraculixx", "kpaper", "1.+")
-    implementation("dev.jorel", "commandapi-bukkit-shade", "9.+")
+
+
     implementation("net.kyori", "adventure-text-minimessage", "4.+")
-    implementation("dev.jorel", "commandapi-bukkit-kotlin", "9.+")
+
+    implementation("dev.jorel:commandapi-bukkit-kotlin:9.6.0")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib")
+    compileOnly("dev.jorel:commandapi-bukkit-core:9.6.0")
+    implementation("dev.jorel:commandapi-bukkit-shade-mojang-mapped:9.6.0")
+
+    compileOnly("me.clip:placeholderapi:2.11.6")
 
 }
 
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(21)
 }
 
 tasks {
     runServer {
-        minecraftVersion("1.20.1")
+        minecraftVersion("1.21.1")
     }
     assemble {
         dependsOn(reobfJar)
+        dependsOn(shadowJar)
     }
     compileJava {
         options.encoding = "UTF-8"
-        options.release.set(17)
+        options.release.set(21)
     }
     compileKotlin {
-        kotlinOptions.jvmTarget = "17"
+        kotlinOptions.jvmTarget = "21"
     }
 }
 
@@ -63,6 +76,6 @@ bukkit {
     // Optionals
     load = BukkitPluginDescription.PluginLoadOrder.STARTUP
     depend = listOf()
-    softDepend = listOf()
+    softDepend = listOf("PlaceholderAPI")
     libraries = listOf()
 }
