@@ -1,27 +1,47 @@
-# Color-Status
+### Features 
 
-This is the Source Code from the Plugin <a href="https://modrinth.com/plugin/color-status">ColorStatus</a>
+1. **Customizable Name Display:**
+   - Change the **color** of your name:
+     `/cosmetics name color <color> bold <true/false>`
 
-# What it can?
+2. **Customizable Prefixes:**
+   - Modify the **color** and **bold formatting** of your prefix:
+     `/cosmetics prefix color <color> bold <true/false>`
+   - Update your **status** directly:
+     `/cosmetics prefix status <status>`
 
-The plugin puts a status in a [<status>] bracket, this is known from Craft Attack and has now been implemented into an open source plugin. You can just set Status Color And Bold "true" or "false"
-
-
-IMPORTANT! THE PLUGIN IS STILL IN BETA THE PREFIX DOES NOT SAVE AFTER A REJOIN AND A CONFIG IS NOT IN THE VERSION!
-
-
-# Funktion:
-
-Your can set your Status like Craft Attack and Color other things in Minecraft
+3. **Reset Options:**
+   - Reset customizations for name or prefix:
+     `/cosmetics reset <name/prefix>`
 
 
+### Benefits:
+- **Enhanced Personalization:** Express yourself with unique colors, bold styles, and custom statuses.
+- **Easy Reset Options:** Quickly return to default settings without hassle.
+- **Role-Specific Access (Upcoming):** Admins can control access with a detailed permission system for better server management.
 
-# Commands:
-- ``/color reset`` - Reset your Status
-- ``/color set color <color> status <status> bold <bold>`` - Set your Status... 
 
-### Commands (``coming``): 
-- ``/color name color <color>`` - Set your Name Color
-- ``/color reload`` - Reload the Plugin (not Save)
-- ``/color set color <color> status <status> bold <bold>`` - Make the command optional
-- ``/color item color <color> name <name>`` - Rename and Color a Items (not Save)
+### Commands:
+- ``/cosmetics name color <color> bold <true/false>``
+- ``/cosmetics prefix color <color> status <status> bold <true/false>``
+- ``/cosmetics reset <name/prefix>`` 
+
+### Permissions
+  - ``colorstatus.command.cosmetics.reset``
+  - ``colorstatus.command.cosmetics.reset.prefix``
+  - ``colorstatus.command.cosmetics.reset.name``
+---
+  - ``colorstatus.command.cosmetics.prefix``
+  - ``colorstatus.command.cosmetics.prefix.status``
+  - ``colorstatus.command.cosmetics.prefix.color``
+  - ``colorstatus.command.cosmetics.prefix.bold``
+---
+  - ``colorstatus.command.cosmetics.name``
+  - ``colorstatus.command.cosmetics.name.color``
+  - ``colorstatus.command.cosmetics.name.bold``
+
+### Coming SOON
+- Placeholder API
+- Database for Multi-server support
+- More Cosmetics
+- More Commands/Commands Options
