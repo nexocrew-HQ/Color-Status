@@ -1,3 +1,5 @@
+# Color Status
+
 ### Features 
 
 1. **Customizable Name Display:**
