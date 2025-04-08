@@ -2,7 +2,6 @@ import net.minecrell.pluginyml.bukkit.BukkitPluginDescription
 
 plugins {
     kotlin("jvm") version "2.+"
-    id("io.papermc.paperweight.userdev") version "1.+"
     id("xyz.jpenilla.run-paper") version "2.+"
     kotlin("plugin.serialization") version "2.+"
     id("net.minecrell.plugin-yml.bukkit") version "0.6.+"
@@ -13,6 +12,10 @@ repositories {
     mavenCentral()
     maven {
         url = uri("https://repo.extendedclip.com/releases/")
+    }
+    maven {
+        name = "papermc"
+        url = uri("https://repo.papermc.io/repository/maven-public/")
     }
 }
 
@@ -27,19 +30,17 @@ val projectName = properties["name"] as String
 
 
 dependencies {
-    paperweight.paperDevBundle("1.21.1-R0.1-SNAPSHOT")
-
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib")
 
     implementation("org.jetbrains.kotlinx", "kotlinx-serialization-json", "1.+")
 
 
     implementation("net.kyori", "adventure-text-minimessage", "4.+")
 
-    implementation("dev.jorel:commandapi-bukkit-kotlin:9.6.0")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib")
-    compileOnly("dev.jorel:commandapi-bukkit-core:9.6.0")
-    implementation("dev.jorel:commandapi-bukkit-shade-mojang-mapped:9.6.0")
+    implementation("dev.jorel:commandapi-bukkit-kotlin:10.+")
+    compileOnly("dev.jorel:commandapi-bukkit-core:10.+")
+    implementation("dev.jorel:commandapi-bukkit-shade-mojang-mapped:10.+")
 
     compileOnly("me.clip:placeholderapi:2.11.6")
 
@@ -54,7 +55,6 @@ tasks {
         minecraftVersion("1.21.1")
     }
     assemble {
-        dependsOn(reobfJar)
         dependsOn(shadowJar)
     }
     compileJava {
@@ -66,9 +66,15 @@ tasks {
     }
 }
 
+tasks.jar {
+    manifest {
+        attributes["paperweight-mappings-namespace"] = "mojang"
+    }
+}
+
 bukkit {
     main = "$group.${projectName.lowercase()}.${projectName}"
-    apiVersion = "1.16"
+    apiVersion = "1.20"
     foliaSupported = foliaSupport
     website = "https://modrinth.com/plugin/color-status"
     authors = listOf("xyzjesper")
